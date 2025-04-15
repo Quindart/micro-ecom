@@ -9,17 +9,28 @@
 <body>
 
     <h1>API Gateway</h1>
-    
+
       <button onclick="getData()">Gọi API</button>
       <script>
+        const axiosConfig = axios.create({
+            baseURL: 'http://localhost:3000',
+            timeout: 1000,
+            headers: {'X-Custom-Header': 'foobar'}
+        });
         function getData() {
-            axios.get('http://localhost:3000/blogs')
+            axiosConfig.get('http://localhost:3000/blogs')
                 .then(function (response) {
                     console.log(response.data);
                 })
                 .catch(function (error) {
                     console.error(error);
                 });
+        }
+        let count = 0;
+        while(count < 101){
+          getData();
+            console.log(count);
+            count++;
         }
       </script>
 </body>
